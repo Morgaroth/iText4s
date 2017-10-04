@@ -1,13 +1,13 @@
 
 name := "iText4s"
 
-version := "0.1.0"
-
 scalaVersion := "2.12.3"
 
 organization := "io.github.morgaroth"
 
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+
+bintrayVcsUrl := Some("https://github.com/Morgaroth/iText4s")
 
 val itextVersion = "5.5.12"
 
