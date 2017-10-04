@@ -2,10 +2,10 @@ import ca.vorona.iext.dsl.PDF
 import ca.vorona.iext.dsl.PDF._
 import java.util.Date
 
-object DslTest extends App {
+class DslTest extends App {
 
   new PDF {
-    file("/tmp/HelloWorld.pdf")
+    file("HelloWorld.pdf")
     paragraph(s"Hello World ${new Date()}!")
 
     paragraph {

@@ -7,3 +7,6 @@ bin/
 build/
 .worksheet/
 
+.idea
+/target
+/project/target
