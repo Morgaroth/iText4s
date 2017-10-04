@@ -10,3 +10,4 @@ build/
 .idea
 /target
 /project/target
+/project/project
