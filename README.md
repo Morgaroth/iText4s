@@ -1,3 +1,6 @@
+ [ ![Download](https://api.bintray.com/packages/morgaroth/maven/itext4s/images/download.svg) ](https://bintray.com/morgaroth/maven/itext4s/_latestVersion)
+
+
 itextdsl
 ========
 
