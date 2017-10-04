@@ -7,6 +7,8 @@ scalaVersion := "2.12.3"
 
 organization := "io.github.morgaroth"
 
+licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+
 val itextVersion = "5.5.12"
 
 libraryDependencies ++= Seq(
