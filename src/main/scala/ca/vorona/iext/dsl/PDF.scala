@@ -5,7 +5,8 @@ import java.io.{File, FileOutputStream}
 import ca.vorona.iext.dsl.Align.AlignmentType
 import ca.vorona.iext.dsl.Border.BorderType
 import com.itextpdf.text._
-import com.itextpdf.text.pdf.{PdfPCell, PdfPTable, PdfWriter}
+import com.itextpdf.text.pdf.{PdfPCell, PdfPTable, PdfPageEvent, PdfWriter}
+import com.itextpdf.text.pdf.BaseFont
 
 import scala.collection.mutable
 import scala.language.reflectiveCalls
@@ -25,23 +26,21 @@ object PDF {
 /**
   * Main class for PDF DSL
   */
-
-
 abstract class PDF extends Document {
-
-  import com.itextpdf.text.pdf.BaseFont
 
   val courier = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED)
   val basicFont = new Font(courier)
 
   // Define the file to save the PDF to
-  def file(path: String) {
+  def setup(path: String, footer: Option[PdfPageEvent] = None) {
     val file = new File(path)
     println(file.getCanonicalPath)
     val writer = PdfWriter.getInstance(this, new FileOutputStream(file))
-    writer.setPageEvent(new PageNumeration(basicFont.getBaseFont))
+    footer.foreach(writer.setPageEvent)
     open()
   }
+
+  def setup(path: String, footer: PdfPageEvent) = setup(path, Some(footer))
 
   def paragraph(body: => Any, text: String = ""): Unit = {
     val state = call(body)
