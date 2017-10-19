@@ -38,7 +38,8 @@ abstract class PDF extends Document {
   def file(path: String) {
     val file = new File(path)
     println(file.getCanonicalPath)
-    PdfWriter.getInstance(this, new FileOutputStream(file))
+    val writer = PdfWriter.getInstance(this, new FileOutputStream(file))
+    writer.setPageEvent(new PageNumeration(basicFont.getBaseFont))
     open()
   }
 

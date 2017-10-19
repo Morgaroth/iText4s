@@ -2,7 +2,7 @@ import ca.vorona.iext.dsl.PDF
 import ca.vorona.iext.dsl.PDF._
 import java.util.Date
 
-class DslTest extends App {
+object DslTest extends App {
 
   new PDF {
     file("HelloWorld.pdf")
@@ -24,14 +24,35 @@ class DslTest extends App {
     }
 
     paragraph("---")
+    for {
+      i <- 1 until 100
+      _ = paragraph {
+        phrase {
+          chunk {
+            text("chunk 1");
+          }
+          //        background(rgb"0xFF0000") // <-- That will throw an exception now
+
+        }
+        phrase {
+          chunk {
+            "chunk 2"
+          }
+        }
+      }
+    } yield i
     paragraph {
       phrase {
-        chunk { text("chunk 1");  }
-//        background(rgb"0xFF0000") // <-- That will throw an exception now
-        
+        chunk {
+          text("chunk 1");
+        }
+        //        background(rgb"0xFF0000") // <-- That will throw an exception now
+
       }
       phrase {
-        chunk { "chunk 2" }
+        chunk {
+          "chunk 2"
+        }
       }
     }
     close()
