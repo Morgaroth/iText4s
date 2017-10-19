@@ -9,12 +9,15 @@ import com.itextpdf.text.pdf.PdfPageEventHelper
 import com.itextpdf.text.pdf.PdfTemplate
 import com.itextpdf.text.pdf.PdfWriter
 
-class PageNumeration(font: BaseFont) extends PdfPageEventHelper {
+class PageNumeration(
+                      font: BaseFont,
+                      pageTextFormatter: (Int) => String = x => s"Page $x of",
+                      footerFontSize: Int = 8
+                    ) extends PdfPageEventHelper {
 
   /** The template with the total number of pages. */
   var total: PdfTemplate = _
-  private var normal: Font = new Font(font, 8)
-  private var normalSmall: Font = new Font(font, 6)
+  private val normal: Font = new Font(font, footerFontSize)
 
   /**
     * Creates the PdfTemplate that will hold the total number of pages.
@@ -42,13 +45,13 @@ class PageNumeration(font: BaseFont) extends PdfPageEventHelper {
       cell.setBorder(0)
       cell.setBorderWidthTop(1)
       cell.setHorizontalAlignment(Element.ALIGN_LEFT)
-//      cell.setPhrase(new Phrase("some text", normalSmall))
+      //      cell.setPhrase(new Phrase("some text", normalSmall))
       table.addCell(cell)
       cell = new PdfPCell
       cell.setBorder(0)
       cell.setBorderWidthTop(1)
       cell.setHorizontalAlignment(Element.ALIGN_RIGHT)
-      cell.setPhrase(new Phrase(s"Page ${writer.getPageNumber} of", normal))
+      cell.setPhrase(new Phrase(pageTextFormatter(writer.getPageNumber), normal))
       table.addCell(cell)
       cell = new PdfPCell(Image.getInstance(total))
       cell.setBorder(0)
