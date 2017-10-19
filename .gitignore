@@ -11,3 +11,5 @@ build/
 /target
 /project/target
 /project/project
+
+*.pdf

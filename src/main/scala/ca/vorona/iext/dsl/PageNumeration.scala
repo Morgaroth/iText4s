@@ -8,6 +8,8 @@ class PageNumeration(
                       pageTextFormatter: (Int) => String = x => s"Page $x of",
                       company: String = "",
                       footerFontSize: Int = 10,
+                      footerSecondHeight: Float = 14,
+                      footerSecondWidth: Float = 30,
                       footerSmallSize: Int = -1,
                     ) extends PdfPageEventHelper {
 
@@ -23,7 +25,7 @@ class PageNumeration(
     *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
     */
   override def onOpenDocument(writer: PdfWriter, document: Document) = {
-    total = writer.getDirectContent.createTemplate(30, 12)
+    total = writer.getDirectContent.createTemplate(footerSecondWidth, footerSecondHeight)
   }
 
   /**
@@ -55,7 +57,7 @@ class PageNumeration(
       cell.setBorderWidthTop(1)
       table.addCell(cell)
       table.setTotalWidth(document.getPageSize.getWidth - document.leftMargin - document.rightMargin)
-      table.writeSelectedRows(0, -1, document.leftMargin, document.bottomMargin - 15, writer.getDirectContent)
+      table.writeSelectedRows(0, -1, document.leftMargin, document.bottomMargin - footerSecondWidth / 2, writer.getDirectContent)
     } catch {
       case de: DocumentException =>
         throw new ExceptionConverter(de)
