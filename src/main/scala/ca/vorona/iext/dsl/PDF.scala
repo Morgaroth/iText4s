@@ -32,7 +32,7 @@ abstract class PDF extends Document {
   val basicFont = new Font(courier)
 
   // Define the file to save the PDF to
-  def setup(path: String, footer: Option[PdfPageEvent] = None) {
+  def setup(path: String, footer: Option[PdfPageEvent] = None): Unit = {
     val file = new File(path)
     println(file.getCanonicalPath)
     val writer = PdfWriter.getInstance(this, new FileOutputStream(file))
@@ -40,7 +40,7 @@ abstract class PDF extends Document {
     open()
   }
 
-  def setup(path: String, footer: PdfPageEvent) = setup(path, Some(footer))
+  def setup(path: String, footer: PdfPageEvent): Unit = setup(path, Some(footer))
 
   def paragraph(body: => Any, text: String = ""): Unit = {
     val state = call(body)

@@ -5,7 +5,7 @@ import java.util.Date
 object DslTest extends App {
 
   new PDF {
-    file("HelloWorld.pdf")
+    setup("HelloWorld.pdf")
     paragraph(s"Hello World ${new Date()}!")
 
     paragraph {
