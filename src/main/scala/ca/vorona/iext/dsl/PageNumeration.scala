@@ -1,23 +1,20 @@
 package ca.vorona.iext.dsl
 
 import com.itextpdf.text._
-import com.itextpdf.text.pdf.BaseFont
-import com.itextpdf.text.pdf.ColumnText
-import com.itextpdf.text.pdf.PdfPCell
-import com.itextpdf.text.pdf.PdfPTable
-import com.itextpdf.text.pdf.PdfPageEventHelper
-import com.itextpdf.text.pdf.PdfTemplate
-import com.itextpdf.text.pdf.PdfWriter
+import com.itextpdf.text.pdf._
 
 class PageNumeration(
                       font: BaseFont,
                       pageTextFormatter: (Int) => String = x => s"Page $x of",
-                      footerFontSize: Int = 8
+                      company: String = "",
+                      footerFontSize: Int = 10,
+                      footerSmallSize: Int = -1,
                     ) extends PdfPageEventHelper {
 
   /** The template with the total number of pages. */
   var total: PdfTemplate = _
   private val normal: Font = new Font(font, footerFontSize)
+  private val normalSmall: Font = new Font(font, Option(footerSmallSize).filter(_ > 0).getOrElse((footerFontSize * 0.7).toInt))
 
   /**
     * Creates the PdfTemplate that will hold the total number of pages.
@@ -45,7 +42,7 @@ class PageNumeration(
       cell.setBorder(0)
       cell.setBorderWidthTop(1)
       cell.setHorizontalAlignment(Element.ALIGN_LEFT)
-      //      cell.setPhrase(new Phrase("some text", normalSmall))
+      cell.setPhrase(new Phrase(company, normalSmall))
       table.addCell(cell)
       cell = new PdfPCell
       cell.setBorder(0)
