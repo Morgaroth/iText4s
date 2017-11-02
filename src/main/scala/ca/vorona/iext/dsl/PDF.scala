@@ -30,6 +30,7 @@ abstract class PDF extends Document {
 
   val courier = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED)
   val basicFont = new Font(courier)
+  basicFont.setSize(10)
 
   // Define the file to save the PDF to
   def setup(path: String, footer: Option[PdfPageEvent] = None): Unit = {
@@ -37,6 +38,7 @@ abstract class PDF extends Document {
     println(file.getCanonicalPath)
     val writer = PdfWriter.getInstance(this, new FileOutputStream(file))
     footer.foreach(writer.setPageEvent)
+    setMargins(72, 72, 72, 72)
     open()
   }
 
