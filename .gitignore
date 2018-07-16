@@ -13,3 +13,8 @@ build/
 /project/project
 
 *.pdf
+
+# gitlab CI
+/.ivy2
+/.sbt
+/.ssh
